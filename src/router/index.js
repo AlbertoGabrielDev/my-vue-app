@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
   {
-    path: '/usuario',
+    path: '/produtos',
     name: 'Tables',
-    component: () => import('@/views/base/IndexUsuario.vue'),
+    component: () => import('@/views/base/IndexProduto.vue'),
   },
 ];
 
