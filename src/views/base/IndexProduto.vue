@@ -43,7 +43,6 @@
       <CPaginationItem
         aria-label="Previous"
         @click="previousPage"
-        :disabled="currentPage <= 1"
       >
         <span aria-hidden="true">&laquo;</span>
       </CPaginationItem>
@@ -58,7 +57,6 @@
       <CPaginationItem
         aria-label="Next"
         @click="nextPage"
-        :disabled="currentPage >= totalPages"
       >
         <span aria-hidden="true">&raquo;</span>
       </CPaginationItem>
