@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-lg  ">
     <CInputGroup class="mb-3">
       <CFormInput
         placeholder="Buscar produto..."

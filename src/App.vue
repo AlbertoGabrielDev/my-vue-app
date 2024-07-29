@@ -1,47 +1,17 @@
-<!-- <template>
-  <div id="app">
-    <h1>Hello App!</h1>
-    <p>
-      <router-link to="/">Go to Home </router-link>
-      <router-link to="/about"> Go to About</router-link>
-      <router-link to="/produtos"> Produtos</router-link>
-    </p>
-    <router-view></router-view>
-  </div>
-</template> -->
-<template>
-   <button @click="toggleSidebar" class="btn btn-primary">
+ <template>
+    <div id="app">
+      <button @click="toggleSidebar" class="btn btn-primary menu">
       <CIcon customClassName="nav-icon" icon="cil-menu" />
     </button>
-  <CSidebar class="simplebar-scrollable-y" :visible="sidebarVisible" @visible-change="sidebarVisible = $event">
+      <router-view></router-view>
+  <CSidebar class="simplebar-scrollable-y sidebar sidebar-dark sidebar-fixed border-end" :visible="sidebarVisible" @visible-change="sidebarVisible = $event">
   <CSidebarHeader class="border-bottom">
     <CSidebarBrand>CUI</CSidebarBrand>
   </CSidebarHeader>
   <CSidebarNav>
     <CNavTitle>Nav Title</CNavTitle>
-    <CNavItem href="#">
-      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Nav item
-    </CNavItem>
-    <CNavItem href="#">
-      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Nav item
-    </CNavItem>
-    <CNavItem href="#">
-      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Nav item
-    </CNavItem>
-    <CNavItem href="#">
-      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Nav item
-    </CNavItem>
-    <CNavItem href="#">
-      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Nav item
-    </CNavItem>
-    <CNavItem href="#">
-      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Nav item
-    </CNavItem>
-    <CNavItem href="#">
-      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Nav item
-    </CNavItem>
-    <CNavItem href="#">
-      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Nav item
+    <CNavItem href="/produtos">
+      <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> Produtos
     </CNavItem>
     <CNavItem href="#">
       <CIcon  customClassName="nav-icon" icon="cil-speedometer"/> With badge
@@ -77,24 +47,20 @@
     </CNavItem>
   </CSidebarNav>
 </CSidebar>
-</template>
+
+</div>
+</template> 
 
 
 <script>
-import { CSidebar, CSidebarHeader, CSidebarNav, CNavItem, CNavTitle } from '@coreui/vue';
+
+
 export default {
   name: 'App',
-  components: {
-    
-    CSidebar,
-    CSidebarHeader,
-    CSidebarNav,
-    CNavItem,
-    CNavTitle
-  },
+
   data() {
     return {
-      sidebarVisible: false, // Estado do menu lateral (aberto ou fechado)
+      sidebarVisible: false,
     };
   },
   methods: {
@@ -104,7 +70,7 @@ export default {
   },
 };
 </script>
-<!-- :visible="sidebarVisible" @visible-change="sidebarVisible = $event" -->
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -131,7 +97,7 @@ export default {
 }
 
 /* Estilo para o botão de menu */
-button {
+.menu {
   position: fixed;
   top: 15px;
   left: 15px;
