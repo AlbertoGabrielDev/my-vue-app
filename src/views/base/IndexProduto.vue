@@ -151,15 +151,3 @@ export default {
 };
 </script>
 
-<!-- <style>
-/* Exemplo de estilo para dark e light theme */
-.dark {
-  background-color: #333;
-  color: #fff;
-}
-
-.light {
-  background-color: #fff;
-  color: #000;
-}
-</style> -->
