@@ -1,5 +1,5 @@
 <template>
-  <div class="container-lg  ">
+  <div class="body flex-grow-1">
     <CInputGroup class="mb-3">
       <CFormInput
         placeholder="Buscar produto..."
@@ -9,7 +9,8 @@
         aria-describedby="button-addon2"
       />
     </CInputGroup>
-    <CTable color="dark" striped>
+
+    <CTable striped :color="colorScheme">
       <CTableHead>
         <CTableRow>
           <CTableHeaderCell scope="col">COD. PRODUTO</CTableHeaderCell>
@@ -38,7 +39,7 @@
         </CTableRow>
       </CTableBody>
     </CTable>
-    
+
     <CPagination aria-label="Page navigation example">
       <CPaginationItem
         aria-label="Previous"
@@ -67,6 +68,7 @@
 <script>
 import axios from '@/plugins/axios';
 
+
 function debounce(func, wait) {
   let timeout;
   return function(...args) {
@@ -76,6 +78,13 @@ function debounce(func, wait) {
 }
 
 export default {
+  name: 'IndexProduto',
+  props: {
+    colorScheme:{
+      type: String,
+      default: 'dark',
+    }
+  },
   data() {
     return {
       produtos: [],
@@ -89,11 +98,12 @@ export default {
     this.debouncedFetchFilteredProducts = debounce(this.fetchFilteredProducts.bind(this), 500);
   },
   methods: {
+   
     async loadProducts(page = 1) {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/verdurao/produtos/index?page=${page}`);
         this.produtos = response.data.data;
-        this.totalPages = Math.ceil(response.data.total / response.data.per_page); 
+        this.totalPages = Math.ceil(response.data.total / response.data.per_page);
         this.currentPage = page;
       } catch (error) {
         console.error('Erro ao carregar produtos:', error);
@@ -140,3 +150,16 @@ export default {
   },
 };
 </script>
+
+<!-- <style>
+/* Exemplo de estilo para dark e light theme */
+.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.light {
+  background-color: #fff;
+  color: #000;
+}
+</style> -->
