@@ -19,14 +19,26 @@
     methods: {
       selectTheme(theme) {
         this.selectedTheme = theme;
-       
+        this.saveTheme(); 
         this.changeTheme(); 
       },
       changeTheme() {
         this.$emit('theme-changed', this.selectedTheme);
       },
+      saveTheme() {
+        localStorage.setItem('colorScheme', this.selectedTheme); 
+      },
+      loadTheme() {
+        const savedColorScheme = localStorage.getItem('colorScheme');
+        if (savedColorScheme) {
+          this.selectedTheme = savedColorScheme; 
+          this.$emit('theme-changed', this.selectedTheme); 
+        }
+      }
     },
-   
+    created() {
+      this.loadTheme(); 
+    },
   };
   </script>
   

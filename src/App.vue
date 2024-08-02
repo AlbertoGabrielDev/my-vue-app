@@ -42,14 +42,14 @@
         </CNavGroup>
         <CNavItem href="https://coreui.io">
           <CIcon :icon="icons.cilCloudDownload" customClassName="nav-icon" /> Download CoreUI
-        </CNavItem>
+        </CNavItem>    
         <CNavItem href="https://coreui.io/pro/">
           <CIcon :icon="icons.cilLayers" customClassName="nav-icon" /> Try CoreUI PRO
         </CNavItem>
       </CSidebarNav>
     </CSidebar>
   </div>
-<!-- ------- -->
+<!-- ------- Navbar-->
 <CNavbar expand="lg" :color-scheme="colorScheme" :color="colorScheme">
   <CContainer fluid>
     <CNavbarBrand href="#">Navbar</CNavbarBrand>
@@ -103,6 +103,7 @@ export default {
     return {
       sidebarVisible: false,
       colorScheme: 'dark',
+      visible: true,
       icons: {
         cilMenu,
         cilSpeedometer,
