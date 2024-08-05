@@ -1,10 +1,9 @@
 <template>
-  <div id="app" >
-    <router-view :color-scheme="colorScheme" />
+  <div id="app">
     <button @click="toggleSidebar" class="btn btn-primary menu">
       <CIcon customClassName="nav-icon" :icon="icons.cilMenu" />
     </button>
-    <!-- <router-view></router-view> -->
+
     <CSidebar :color-scheme="colorScheme" class="simplebar-scrollable-y sidebar sidebar-fixed border-end" :visible="sidebarVisible" @visible-change="sidebarVisible = $event">
       <CSidebarHeader class="border-bottom">
         <CSidebarBrand>CUI</CSidebarBrand>
@@ -48,42 +47,45 @@
         </CNavItem>
       </CSidebarNav>
     </CSidebar>
+
+    <!-- Navbar -->
+    <CContainer fluid :class="navbarClass">
+      <CNavbar expand :color-scheme="colorScheme" :color="colorScheme"   >
+          <CNavbarBrand href="#">Iniciar</CNavbarBrand>
+          <CCollapse class="navbar-collapse" :visible="visible">
+            <CNavbarNav>
+              <CNavItem>
+                <CNavLink href="#" active>
+                  Home
+                </CNavLink>
+              </CNavItem>
+              <CNavItem>
+                <CNavLink href="#">Link</CNavLink>
+              </CNavItem>
+              <ChangeColor :initialTheme="colorScheme" @theme-changed="updateTheme" />
+              <CNavItem>
+                <CNavLink href="#" disabled>
+                  Disabled
+                </CNavLink>
+              </CNavItem>
+            </CNavbarNav>
+            <CForm class="d-flex">
+              <CFormInput type="search" class="me-2" placeholder="Search"/>
+              <CButton type="submit" color="success" variant="outline">Search</CButton>
+            </CForm>
+          </CCollapse>
+        </CNavbar>
+      </CContainer>
+
+    <router-view :color-scheme="colorScheme" :sidebar-visible="sidebarVisible" />
   </div>
-<!-- ------- Navbar-->
-<CNavbar expand="lg" :color-scheme="colorScheme" :color="colorScheme">
-  <CContainer fluid>
-    <CNavbarBrand href="#">Navbar</CNavbarBrand>
-    <CNavbarToggler @click="visible = !visible"/>
-    <CCollapse class="navbar-collapse" :visible="visible">
-      <CNavbarNav>
-        <CNavItem>
-          <CNavLink href="#" active>
-            Home
-          </CNavLink>
-        </CNavItem>
-        <CNavItem>
-          <CNavLink href="#">Link</CNavLink>
-        </CNavItem>
-        <ChangeColor :initialTheme="colorScheme" @theme-changed="updateTheme" />
-        <CNavItem>
-          <CNavLink href="#" disabled>
-            Disabled
-          </CNavLink>
-        </CNavItem>
-      </CNavbarNav>
-      <CForm class="d-flex">
-        <CFormInput type="search" class="me-2" placeholder="Search"/>
-        <CButton type="submit" color="success" variant="outline">Search</CButton>
-      </CForm>
-    </CCollapse>
-  </CContainer>
-</CNavbar>
 </template>
 
 <script>
 import { CSidebar, CSidebarHeader, CSidebarNav, CNavItem, CNavTitle, CIcon, CBadge, CSidebarBrand, CNavGroup } from '@coreui/vue';
 import { cilMenu, cilSpeedometer, cilPuzzle, cilCloudDownload, cilLayers } from '@coreui/icons';
 import ChangeColor from './ChangeColor.vue';
+
 export default {
   name: 'App',
   components: {
@@ -97,7 +99,6 @@ export default {
     CSidebarBrand,
     CNavGroup,
     ChangeColor,
-
   },
   data() {
     return {
@@ -109,18 +110,41 @@ export default {
         cilSpeedometer,
         cilPuzzle,
         cilCloudDownload,
-        cilLayers
-      }
+        cilLayers,
+      },
     };
+  },
+  computed: {
+    navbarClass() {
+      return this.sidebarVisible ? 'navbar-collapsed' : 'navbar-expanded'; 
+    },
   },
   methods: {
     toggleSidebar() {
-      this.sidebarVisible = !this.sidebarVisible; 
+      this.sidebarVisible = !this.sidebarVisible;
     },
-    updateTheme(theme){
+    updateTheme(theme) {
       this.colorScheme = theme;
     },
   },
 };
 </script>
 
+<style scoped>
+.navbar-expanded {
+  width: 100%;
+  transition: width 0.3s;
+}
+.navbar-collapsed {
+  width: calc(100% - 250px); /* Assuming sidebar width is 250px */
+  transition: width 0.3s;
+  position: relative;
+  left: 120px;
+}
+
+@media (max-width: 768px) {
+  .navbar-collapsed {
+    width: 100%;
+  }
+}
+</style>

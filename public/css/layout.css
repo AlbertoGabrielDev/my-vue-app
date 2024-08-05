@@ -1,35 +1,43 @@
 #app {
-    font-family: Avenir, Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-  }
-  
-  /* *{
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+/* *{
     background-color: #212631;
   } */
 
-  
-  .pagination {
-    --cui-pagination-bg: #212631 !important;
-    --cui-pagination-hover-bg: none !important;
-  }
-  
-  /* .sidebar-nav,
+
+.pagination {
+  --cui-pagination-bg: #212631 !important;
+  --cui-pagination-hover-bg: none !important;
+}
+
+/* .sidebar-nav,
   .nav-link,
   .sidebar-brand,
   .nav-title {
     color: white !important;
   } */
-  
-  .menu {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    z-index: 2000;
-    background-color: #007bff;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+
+
+
+.menu {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 2000;
+  background-color: #007bff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+@media (min-width: 992px) {
+  .sidebar.hide:not(.sidebar-end)~* {
+    --cui-sidebar-occupy-start: 0;
   }
+}

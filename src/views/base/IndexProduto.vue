@@ -1,5 +1,5 @@
 <template>
-  <div class="body flex-grow-1">
+  <CContainer fluid :class="containerClass">
     <CInputGroup class="mb-3">
       <CFormInput
         placeholder="Buscar produto..."
@@ -62,12 +62,11 @@
         <span aria-hidden="true">&raquo;</span>
       </CPaginationItem>
     </CPagination>
-  </div>
+  </CContainer>
 </template>
 
 <script>
 import axios from '@/plugins/axios';
-
 
 function debounce(func, wait) {
   let timeout;
@@ -80,10 +79,14 @@ function debounce(func, wait) {
 export default {
   name: 'IndexProduto',
   props: {
-    colorScheme:{
+    colorScheme: {
       type: String,
       default: 'dark',
-    }
+    },
+    sidebarVisible: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -93,12 +96,16 @@ export default {
       totalPages: 1,
     };
   },
+  computed: {
+    containerClass() {
+      return this.sidebarVisible ? 'container-collapsed' : 'container-expanded'; 
+    },
+  },
   mounted() {
     this.loadProducts();
     this.debouncedFetchFilteredProducts = debounce(this.fetchFilteredProducts.bind(this), 500);
   },
   methods: {
-   
     async loadProducts(page = 1) {
       try {
         const response = await axios.get(`http://127.0.0.1:8000/verdurao/produtos/index?page=${page}`);
@@ -151,3 +158,22 @@ export default {
 };
 </script>
 
+
+<style scoped>
+.container-expanded {
+  width: 100%;
+  transition: width 0.3s;
+}
+.container-collapsed {
+  width: calc(100% - 250px);
+  transition: width 0.3s;
+  position: relative;
+  left: 120px
+}
+
+@media (max-width: 768px) {
+  .container-collapsed {
+    width: 100%;
+  }
+}
+</style>
