@@ -1,9 +1,5 @@
 <template>
   <div id="app">
-    <button @click="toggleSidebar" class="btn btn-primary menu">
-      <CIcon customClassName="nav-icon" :icon="icons.cilMenu" />
-    </button>
-
     <CSidebar :color-scheme="colorScheme" class="simplebar-scrollable-y sidebar sidebar-fixed border-end" :visible="sidebarVisible" @visible-change="sidebarVisible = $event">
       <CSidebarHeader class="border-bottom">
         <CSidebarBrand>CUI</CSidebarBrand>
@@ -50,32 +46,35 @@
 
     <!-- Navbar -->
     <CContainer fluid :class="navbarClass">
-      <CNavbar expand :color-scheme="colorScheme" :color="colorScheme"   >
-          <CNavbarBrand href="#">Iniciar</CNavbarBrand>
-          <CCollapse class="navbar-collapse" :visible="visible">
-            <CNavbarNav>
-              <CNavItem>
-                <CNavLink href="#" active>
-                  Home
-                </CNavLink>
-              </CNavItem>
-              <CNavItem>
-                <CNavLink href="#">Link</CNavLink>
-              </CNavItem>
-              <ChangeColor :initialTheme="colorScheme" @theme-changed="updateTheme" />
-              <CNavItem>
-                <CNavLink href="#" disabled>
-                  Disabled
-                </CNavLink>
-              </CNavItem>
-            </CNavbarNav>
-            <CForm class="d-flex">
-              <CFormInput type="search" class="me-2" placeholder="Search"/>
-              <CButton type="submit" color="success" variant="outline">Search</CButton>
-            </CForm>
-          </CCollapse>
-        </CNavbar>
-      </CContainer>
+      <CNavbar expand :color-scheme="colorScheme" :color="colorScheme" >
+        <CButton @click="toggleSidebar" class="ms-2 me-2" type="submit" color="primary" variant="outline">
+         Menu
+        </CButton>
+        <CNavbarBrand href="#">Iniciar</CNavbarBrand>
+        <CCollapse class="navbar-collapse" :visible="visible">
+          <CNavbarNav>
+            <CNavItem>
+              <CNavLink href="#" active>
+                Home
+              </CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink href="#">Link</CNavLink>
+            </CNavItem>
+            <ChangeColor :initialTheme="colorScheme" @theme-changed="updateTheme" />
+            <CNavItem>
+              <CNavLink href="#" disabled>
+                Disabled
+              </CNavLink>
+            </CNavItem>
+          </CNavbarNav>
+          <CForm class="d-flex">
+            <CFormInput type="search" class="me-2" placeholder="Search"/>
+            <CButton type="submit" color="success" variant="outline">Search</CButton>
+          </CForm>
+        </CCollapse>
+      </CNavbar>
+    </CContainer>
 
     <router-view :color-scheme="colorScheme" :sidebar-visible="sidebarVisible" />
   </div>
@@ -83,7 +82,7 @@
 
 <script>
 import { CSidebar, CSidebarHeader, CSidebarNav, CNavItem, CNavTitle, CIcon, CBadge, CSidebarBrand, CNavGroup } from '@coreui/vue';
-import { cilMenu, cilSpeedometer, cilPuzzle, cilCloudDownload, cilLayers } from '@coreui/icons';
+import { cilMenu, cilSpeedometer, cilPuzzle, cilCloudDownload, cilLayers} from '@coreui/icons';
 import ChangeColor from './ChangeColor.vue';
 
 export default {
