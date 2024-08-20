@@ -108,7 +108,7 @@ export default {
   methods: {
     async loadProducts(page = 1) {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/verdurao/produtos/index?page=${page}`);
+        const response = await axios.get(`http://127.0.0.1:8000/api/v1/verdurao/produtos/index?page=${page}`);
         this.produtos = response.data.data;
         this.totalPages = Math.ceil(response.data.total / response.data.per_page);
         this.currentPage = page;
