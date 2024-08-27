@@ -1,15 +1,30 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Store from '../store';
+import LoginUsers from '@/views/login/LoginUsers.vue';
+import IndexProduto from '@/views/base/IndexProduto.vue';
+import App from '@/App.vue';
+
 const routes = [
   {
-    path: '/produtos',
-    name: 'Tables',
-    component: () => import('@/views/base/IndexProduto.vue'),
+    path: '/',
+    component: App,
+    children: [
+      {
+        path: 'produtos',
+        name: 'Produtos',
+        component: IndexProduto,
+        meta: { requiresAuth: true },
+      },
+    ],
   },
   {
     path: '/login',
-    name: 'LoginUsers',
-    component: () => import('@/views/login/LoginUsers.vue'),
+    children: [
+      {
+        path: '',
+        name: 'LoginUsers',
+        component: LoginUsers,
+      },
+    ],
   },
 ];
 
@@ -19,14 +34,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!Store.getters.isAuthenticated) {
-      next('/login');
-    } else {
-      next();
-    }
+  const isAuthenticated = !!localStorage.getItem('authToken');
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login');
   } else {
     next();
   }
 });
+
 export default router;

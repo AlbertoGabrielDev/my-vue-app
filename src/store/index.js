@@ -1,15 +1,10 @@
-// store.js
-import auth from './auth';
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { createStore } from 'vuex';
+import color from './module/color';
 
-Vue.use(Vuex);
-
- new Vuex.Store({
+const store = createStore({
   modules: {
-    auth,
+    color,
   },
 });
 
-
-export default store;
+export default store; 
