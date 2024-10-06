@@ -8,12 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import ChangeColor from './ChangeColor.vue';
 import '/public/css/layout.css';
+import auth from './store/module/auth';
 
 const app = createApp(App);
 
 app.use(router);
 app.use(CoreuiVue);
-
+app.use(auth) ;
 app.component('CAlert', CAlert);
 app.component('CSidebar', CSidebar);
 app.component('CSidebarHeader', CSidebarHeader);

@@ -1,44 +1,37 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import LoginUsers from '@/views/login/LoginUsers.vue';
-import IndexProduto from '@/views/base/IndexProduto.vue';
-import App from '@/App.vue';
+import {Vue } from 'vue';
+import VueRouter from 'vue-router';
+
+import auth from '@/store/module/auth'; // A store Vuex para gerenciar o estado da autenticação
+
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    component: App,
-    children: [
-      {
-        path: 'produtos',
-        name: 'Produtos',
-        component: IndexProduto,
-        meta: { requiresAuth: true },
-      },
-    ],
+    path: '/produtos',
+    name: 'Produtos',
+    component: () => import('@/views/base/IndexProduto.vue'),
+    meta: { requiresAuth: true } // Definir que esta rota requer autenticação
   },
-  {
-    path: '/login',
-    children: [
-      {
-        path: '',
-        name: 'LoginUsers',
-        component: LoginUsers,
-      },
-    ],
-  },
+  // outras rotas...
 ];
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
+const router = new VueRouter({
+  mode: 'history',
+  routes
 });
 
+// Guard para verificar a permissão antes de entrar na rota
 router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!localStorage.getItem('authToken');
-
-  if (to.meta.requiresAuth && !isAuthenticated) {
-    next('/login');
+  const token = auth.state.auth.token; // Obter o token de autenticação do Vuex
+  
+  // Verificar se a rota requer autenticação
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!token) {
+      // Se o token não existir, redirecionar para a página de login
+      next({ name: 'Login' });
+    } 
   } else {
+    // Se não requer autenticação, pode prosseguir
     next();
   }
 });

@@ -45,7 +45,7 @@
         </option>
       </select>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Logar</button>
     <div v-if="errorMessage" class="alert alert-danger mt-3">
       {{ errorMessage }}
     </div>
@@ -53,8 +53,10 @@
 </template>
 
 <script>
+// import { useAuth } from '@/store/module/auth';
 import axios from 'axios';
-// import { mapActions, mapState } from 'vuex';
+
+// const auth = useAuth;
 
 export default {
   name: 'LoginUsers',
@@ -71,19 +73,20 @@ export default {
   async mounted() {
     await this.loadUnits();
   },
-  // computed: {
-  //   ...mapState('auth', ['errorMessage'])
-  // },
+  computed: {
+   
+  },
   methods: {
-    // ...mapActions('auth', ['login']),
+
     async loadUnits() {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/v1/unidades/index');
         this.unidade = response.data.data;
       } catch (error) {
-        this.errorMessage = 'Erro ao carregar as unidades! Contate o suporte.';
+        this.errorMessage = 'Erro ao carregar as unidades. Contate o suporte.';
       }
     },
+
     async login() {
       this.errorMessage = '';
       if (!this.email || !this.password) {
@@ -103,11 +106,9 @@ export default {
           this.errorMessage = 'O usuário não está ativo! Contate o suporte.';
           return;
         }
-
         localStorage.setItem('authToken', token);
-        
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-
+        this.$store.commit('login', this.email)
         this.$router.push('/produtos');
       } catch (error) {
         if (error.response) {
@@ -115,8 +116,10 @@ export default {
         } else {
           this.errorMessage = 'Falha ao realizar o login!';
         }
+     
       }
     },
   },
 };
 </script>
+

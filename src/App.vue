@@ -63,7 +63,7 @@
             </CNavItem>
             <ChangeColor :initialTheme="colorScheme" @theme-changed="updateTheme" />
             <CNavItem>
-              <CNavLink href="#" disabled>
+              <CNavLink href="" @click="logout" >
                 Disabled
               </CNavLink>
             </CNavItem>
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+
 import { CSidebar, CSidebarHeader, CSidebarNav, CNavItem, CNavTitle, CIcon, CBadge, CSidebarBrand, CNavGroup } from '@coreui/vue';
 import { cilMenu, cilSpeedometer, cilPuzzle, cilCloudDownload, cilLayers} from '@coreui/icons';
 import ChangeColor from './ChangeColor.vue';
@@ -98,6 +99,7 @@ export default {
     CSidebarBrand,
     CNavGroup,
     ChangeColor,
+
   },
   data() {
     return {
@@ -113,18 +115,27 @@ export default {
       },
     };
   },
+  mounted(){
+    this.$store.commit('initialiseStore')
+  },
   computed: {
     navbarClass() {
       return this.sidebarVisible ? 'navbar-collapsed' : 'navbar-expanded'; 
     },
   },
   methods: {
+   
     toggleSidebar() {
       this.sidebarVisible = !this.sidebarVisible;
     },
     updateTheme(theme) {
       this.colorScheme = theme;
     },
+    logout() {
+      this.$store.commit('logout')
+      localStorage.removeItem('authToken');
+      this.$router.push('/login');
+    }
   },
 };
 </script>
